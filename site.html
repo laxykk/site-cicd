@@ -1,0 +1,2196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Музыка нас связала - интернет-магазин музыкальных инструментов. Гитары, клавишные, ударные, духовые, синтезаторы.">
+    <title>Музыка нас связала | Интернет-магазин музыкальных инструментов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;700;800&display=swap&subset=cyrillic" rel="stylesheet">
+    <style>
+        /* ===== CSS ПЕРЕМЕННЫЕ ===== */
+        :root {
+            --bg-body: #f7f5ff;
+            --bg-card: #ffffff;
+            --bg-header: rgba(15, 12, 34, 0.85);
+            --bg-footer: #0f0c22;
+            --accent: #7c5cff;
+            --accent-2: #ff6b9d;
+            --accent-3: #00d2b8;
+            --accent-hover: #6843f0;
+            --accent-light: #c4b5ff;
+            --gradient-accent: linear-gradient(135deg, #7c5cff 0%, #ff6b9d 100%);
+            --gradient-dark: linear-gradient(160deg, #0f0c22 0%, #2a1e5c 50%, #14112e 100%);
+            --text-main: #221d3a;
+            --text-muted: #6b6691;
+            --text-light: #ffffff;
+            --border-color: #4f31bb;
+            --shadow-sm: 0 2px 10px rgba(67, 52, 160, 0.07);
+            --shadow-md: 0 12px 32px rgba(67, 52, 160, 0.14);
+            --shadow-lg: 0 24px 60px rgba(67, 52, 160, 0.2);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: 0.3s ease;
+            --section-gap: 90px;
+        }
+
+        /* ===== СБРОС И БАЗА ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-body);
+            background-image:
+                radial-gradient(800px 400px at 85% -5%, rgba(124, 92, 255, 0.09), transparent 60%),
+                radial-gradient(600px 400px at 0% 35%, rgba(255, 107, 157, 0.07), transparent 60%),
+                radial-gradient(700px 500px at 100% 65%, rgba(0, 210, 184, 0.06), transparent 60%);
+            background-repeat: no-repeat;
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, .logo, .stat-number {
+            font-family: "Unbounded", "Manrope", sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        img, .placeholder-img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+
+        button {
+            cursor: pointer;
+            font-family: inherit;
+            border: none;
+            background: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- КАСТОМНЫЙ СКРОЛЛБАР --- */
+        ::selection {
+            background: rgba(124, 92, 255, 0.25);
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f0edff;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #7c5cff, #ff6b9d);
+            border-radius: 20px;
+            border: 3px solid #f0edff;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #6843f0, #f04e88);
+        }
+
+        /* ===== ОБЩИЕ КЛАССЫ ===== */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: var(--section-gap) 0;
+        }
+
+        /* Отступ при переходе по якорным ссылкам, чтобы секция не пряталась под липкой шапкой */
+        section[id], footer[id] {
+            scroll-margin-top: 80px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 45px;
+            text-align: center;
+            letter-spacing: -0.02em;
+            position: relative;
+        }
+
+        .section-title span {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Пульсирующее подчёркивание заголовка секции */
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -12px;
+            transform: translateX(-50%) scaleX(0.4);
+            transform-origin: center;
+            width: 130px;
+            height: 3px;
+            border-radius: 3px;
+            background: var(--gradient-accent);
+            animation: titleUnderline 3.2s ease-in-out infinite;
+        }
+
+        @keyframes titleUnderline {
+            0%, 100% { transform: translateX(-50%) scaleX(0.4); }
+            50% { transform: translateX(-50%) scaleX(1); }
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--gradient-accent);
+            background-size: 160% 160%;
+            color: var(--text-light);
+            padding: 13px 30px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.2px;
+            box-shadow: 0 8px 20px rgba(124, 92, 255, 0.35);
+            transition: background-position var(--transition), transform var(--transition), box-shadow var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background-position: 100% 100%;
+            transform: translateY(-3px);
+            box-shadow: 0 14px 30px rgba(124, 92, 255, 0.45);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(124, 92, 255, 0.3);
+        }
+
+        /* Блик, пробегающий по кнопке при наведении */
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 55%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+            transform: skewX(-20deg);
+            pointer-events: none;
+        }
+
+        .btn:hover::after {
+            animation: btnShine 0.7s ease;
+        }
+
+        @keyframes btnShine {
+            from { left: -100%; }
+            to { left: 120%; }
+        }
+
+        /* ===== ШАПКА ===== */
+        header {
+            background: var(--bg-header);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(196, 181, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(15, 12, 34, 0.35);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            z-index: 101;
+            color: var(--text-light);
+            white-space: nowrap;
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, #c4b5ff 0%, #ff6b9d 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.72);
+            position: relative;
+            padding: 6px 2px;
+        }
+
+        .nav-menu a:hover {
+            color: var(--text-light);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--gradient-accent);
+            transition: width var(--transition);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .cart-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        .cart-icon {
+            font-size: 1.4rem;
+            color: var(--text-light);
+            transition: color var(--transition);
+        }
+
+        .cart-wrapper:hover .cart-icon {
+            color: var(--accent-light);
+            animation: cartWiggle 0.5s ease;
+        }
+
+        @keyframes cartWiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-14deg); }
+            50% { transform: rotate(12deg); }
+            75% { transform: rotate(-7deg); }
+        }
+
+        .cart-badge {
+            background-color: var(--accent);
+            color: var(--text-light);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 20px;
+            display: none;
+            transition: transform var(--transition);
+        }
+
+        .cart-badge.visible {
+            display: block;
+        }
+
+        /* Анимация добавления товара в корзину */
+        .product-card.added {
+            animation: cardAdded 0.6s ease;
+        }
+
+        @keyframes cardAdded {
+            0% { transform: scale(1); }
+            30% { transform: scale(1.03); }
+            60% { transform: scale(0.98); }
+            100% { transform: scale(1); }
+        }
+
+        .btn.added {
+            background: #2ecc71;
+            pointer-events: none;
+        }
+
+        .btn.added:hover {
+            background: #2ecc71;
+            transform: none;
+        }
+
+        .cart-badge.bounce {
+            animation: badgeBounce 0.5s ease;
+        }
+
+        @keyframes badgeBounce {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.5); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        /* Летящая картинка товара в корзину */
+        .fly-to-cart {
+            position: fixed;
+            z-index: 9999;
+            width: 70px;
+            height: 70px;
+            pointer-events: none;
+            transition: transform 0.7s cubic-bezier(0.2, 0, 0.8, 0.4);
+        }
+
+        .fly-to-cart img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.7s ease;
+        }
+
+        /* Мини-корзина */
+        .mini-cart {
+            position: absolute;
+            top: calc(100% + 15px);
+            right: 0;
+            width: 340px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            padding: 20px;
+            display: none;
+            z-index: 200;
+            max-height: 450px;
+            overflow-y: auto;
+        }
+
+        .mini-cart.open {
+            display: block;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mini-cart-empty {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        .mini-cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            gap: 10px;
+        }
+
+        .mini-cart-item:last-of-type {
+            border-bottom: none;
+        }
+
+        .mini-cart-item-info {
+            flex: 1;
+        }
+
+        .mini-cart-item-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .mini-cart-item-price {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .mini-cart-item-qty {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+
+        .mini-cart-item-qty button {
+            background-color: #f1f2f6;
+            color: var(--accent);
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color var(--transition);
+        }
+
+        .mini-cart-item-qty button:hover {
+            background-color: #dfe4ea;
+        }
+
+        .mini-cart-total {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 15px;
+            margin-top: 10px;
+            border-top: 1px solid var(--border-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        .mini-cart-total span:last-child {
+            color: var(--accent);
+        }
+
+        /* Гамбургер */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 5px;
+            z-index: 101;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-light);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            padding: 140px 0 120px;
+            text-align: center;
+            background: var(--gradient-dark);
+            overflow: hidden;
+            color: var(--text-light);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(520px 360px at 15% 20%, rgba(255, 107, 157, 0.35), transparent 60%),
+                radial-gradient(520px 360px at 85% 25%, rgba(124, 92, 255, 0.5), transparent 60%),
+                radial-gradient(420px 320px at 50% 105%, rgba(0, 210, 184, 0.28), transparent 60%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: auto 0 0 0;
+            height: 70px;
+            background: linear-gradient(to bottom, transparent, rgba(15, 12, 34, 0.55));
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Медленное «дыхание» световых пятен на фоне hero */
+        .hero::before {
+            animation: heroGlow 14s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroGlow {
+            from { transform: translateX(-1.5%) translateY(0) scale(1); }
+            to { transform: translateX(1.5%) translateY(-2%) scale(1.04); }
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.12;
+            margin-bottom: 22px;
+            letter-spacing: -0.02em;
+            color: var(--text-light);
+        }
+
+        .hero h1 span {
+            background: linear-gradient(90deg, #c4b5ff 0%, #ff6b9d 60%, #ffd76b 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.78);
+            max-width: 620px;
+            margin: 0 auto 40px;
+        }
+
+        .hero .btn {
+            padding: 16px 44px;
+            font-size: 1.05rem;
+        }
+
+        /* Каскадное появление контента hero при загрузке */
+        .hero h1,
+        .hero p,
+        .hero .btn {
+            opacity: 0;
+            transform: translateY(26px);
+            animation: heroEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero h1 { animation-delay: 0.1s; }
+        .hero p { animation-delay: 0.35s; }
+        .hero .btn { animation-delay: 0.6s; }
+
+        @keyframes heroEntrance {
+            from { opacity: 0; transform: translateY(26px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Переливающийся градиент в заголовке hero */
+        .hero h1 span {
+            background-size: 220% 100%;
+            animation: gradientShift 5s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Плавающие ноты */
+        .hero-notes {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero-notes span {
+            position: absolute;
+            bottom: -40px;
+            font-size: 1.6rem;
+            color: rgba(255, 255, 255, 0.16);
+            animation: noteFloat linear infinite;
+        }
+
+        @keyframes noteFloat {
+            0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+            12%  { opacity: 1; }
+            85%  { opacity: 1; }
+            100% { transform: translateY(-115vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* ===== ПРЕИМУЩЕСТВА ===== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 34px 26px;
+            text-align: center;
+            transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(124, 92, 255, 0.12), rgba(255, 107, 157, 0.12));
+            transition: transform var(--transition);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(-6deg);
+        }
+
+        .feature-card h3 {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== КАТАЛОГ ===== */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .product-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+            position: relative;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(124, 92, 255, 0.35);
+        }
+
+        /* Изображение товара */
+        .product-image {
+            height: 210px;
+            position: relative;
+            overflow: hidden;
+            background-color: #f1eefc;
+            background-image: linear-gradient(100deg, #f1eefc 0%, #e3dcf6 45%, #f1eefc 90%);
+            background-size: 220% 100%;
+            animation: imgShimmer 1.4s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .product-image.loaded {
+            animation: none;
+        }
+
+        @keyframes imgShimmer {
+            0% { background-position: 0% 0; }
+            100% { background-position: -220% 0; }
+        }
+
+        .product-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 60%, rgba(15, 12, 34, 0.12));
+            pointer-events: none;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.08);
+        }
+
+        .badge-hit {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: linear-gradient(135deg, #ff6b9d, #ff8a5c);
+            color: var(--text-light);
+            font-size: 0.68rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            border-radius: 999px;
+            letter-spacing: 0.8px;
+            box-shadow: 0 4px 14px rgba(255, 107, 157, 0.45);
+            z-index: 2;
+            animation: badgePulse 2.4s ease-in-out infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.07); }
+        }
+
+        .product-info {
+            padding: 22px 22px 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .product-name {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-main);
+            line-height: 1.35;
+        }
+
+        .product-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 800;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .product-price::before {
+            content: '⟡';
+            font-size: 0.85rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .product-info .btn {
+            margin-top: auto;
+            width: 100%;
+            padding: 11px;
+            font-size: 0.95rem;
+        }
+
+        /* Пагинация */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 50px;
+        }
+
+        .pagination button {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-weight: 700;
+            transition: all var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .pagination button:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .pagination button.active {
+            background: var(--gradient-accent);
+            color: var(--text-light);
+            border-color: transparent;
+            box-shadow: 0 6px 16px rgba(124, 92, 255, 0.4);
+            animation: pagePulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes pagePulse {
+            0%, 100% { box-shadow: 0 6px 16px rgba(124, 92, 255, 0.4); }
+            50% { box-shadow: 0 10px 26px rgba(124, 92, 255, 0.65); }
+        }
+
+        /* ===== О КОМПАНИИ ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .about-text h2 span {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .stat-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 22px 18px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-number {
+            font-size: 2.1rem;
+            font-weight: 800;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== ОТЗЫВЫ ===== */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .review-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 28px 26px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-sm);
+            transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+            position: relative;
+        }
+
+        .review-card::before {
+            content: '★★★★★';
+            position: absolute;
+            top: -14px;
+            left: 26px;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 6px rgba(124, 92, 255, 0.35));
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(124, 92, 255, 0.3);
+        }
+
+        .review-text {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            flex: 1;
+            position: relative;
+            padding-top: 16px;
+        }
+
+        .review-text::before {
+            content: '«';
+            font-size: 2.2rem;
+            font-family: Georgia, serif;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            display: block;
+            margin-bottom: 5px;
+            font-style: normal;
+        }
+
+        .review-author {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .review-product {
+            font-size: 0.8rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        /* ===== ДОСТАВКА ===== */
+        .delivery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .delivery-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 30px 26px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .delivery-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--transition);
+        }
+
+        .delivery-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(124, 92, 255, 0.3);
+        }
+
+        .delivery-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .delivery-icon {
+            font-size: 2.2rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(124, 92, 255, 0.12), rgba(255, 107, 157, 0.12));
+            margin-bottom: 16px;
+            transition: transform var(--transition);
+        }
+
+        .delivery-card:hover .delivery-icon {
+            transform: scale(1.1) rotate(-6deg);
+        }
+
+        .delivery-card h3 {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .delivery-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .delivery-note {
+            margin-top: 30px;
+            background: linear-gradient(135deg, rgba(124, 92, 255, 0.08), rgba(255, 107, 157, 0.08));
+            border: 1px dashed rgba(124, 92, 255, 0.35);
+            border-radius: var(--radius);
+            padding: 18px 24px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* ===== ПОДПИСКА ===== */
+        .subscribe-section {
+            background: linear-gradient(160deg, #f4efff 0%, #ffe9f2 55%, #e6faf6 100%);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subscribe-section::before {
+            content: '♪';
+            position: absolute;
+            font-size: 9rem;
+            color: rgba(124, 92, 255, 0.07);
+            top: -20px;
+            left: 6%;
+            transform: rotate(-15deg);
+        }
+
+        .subscribe-section::after {
+            content: '♫';
+            position: absolute;
+            font-size: 7rem;
+            color: rgba(255, 107, 157, 0.09);
+            bottom: -30px;
+            right: 8%;
+            transform: rotate(20deg);
+        }
+
+        .subscribe-inner {
+            max-width: 620px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subscribe-inner h2 {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .subscribe-inner h2 span {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subscribe-inner p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+
+        .subscribe-form {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .subscribe-form input {
+            flex: 1;
+            min-width: 220px;
+            padding: 15px 20px;
+            border-radius: 999px;
+            border: 1px solid rgba(124, 92, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.85);
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color var(--transition), box-shadow var(--transition), background-color var(--transition);
+        }
+
+        .subscribe-form input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.15);
+            background-color: #ffffff;
+        }
+
+        .subscribe-form input.error {
+            border-color: #e74c3c;
+            box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.12);
+        }
+
+        .subscribe-form .btn {
+            padding: 15px 32px;
+            white-space: nowrap;
+        }
+
+        .form-message {
+            width: 100%;
+            text-align: left;
+            font-size: 0.85rem;
+            margin-top: 6px;
+            min-height: 20px;
+        }
+
+        .form-message.error {
+            color: #e74c3c;
+        }
+
+        .form-message.success {
+            color: #2ecc71;
+            animation: messagePop 0.5s ease;
+        }
+
+        @keyframes messagePop {
+            0% { opacity: 0; transform: translateY(6px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* ===== ФУТЕР ===== */
+        footer {
+            background: var(--gradient-dark);
+            padding: 60px 0 25px;
+            color: var(--text-light);
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-accent);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            font-size: 1rem;
+            margin-bottom: 18px;
+            color: #c4b5ff;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 28px;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--gradient-accent);
+        }
+
+        .footer-col p, .footer-col li {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.65);
+            margin-bottom: 8px;
+        }
+
+        .footer-col a:hover {
+            color: #c4b5ff;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(196, 181, 255, 0.25);
+            background: rgba(196, 181, 255, 0.06);
+            padding: 7px 16px;
+            border-radius: 999px;
+            transition: all var(--transition);
+        }
+
+        .social-links a:hover {
+            border-color: transparent;
+            background: var(--gradient-accent);
+            color: var(--text-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(124, 92, 255, 0.4);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(196, 181, 255, 0.15);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ===== МЕДИАЗАПРОСЫ ===== */
+        @media (max-width: 1023px) {
+            .catalog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .reviews-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .delivery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            :root {
+                --section-gap: 60px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 300px;
+                height: 100vh;
+                background-color: var(--bg-header);
+                flex-direction: column;
+                padding: 100px 30px 30px;
+                gap: 25px;
+                transition: right var(--transition);
+                box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+            }
+
+            .nav-menu.open {
+                right: 0;
+            }
+
+            .nav-menu a {
+                font-size: 1.1rem;
+            }
+
+            .catalog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .delivery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 70px 0 60px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .subscribe-form {
+                flex-direction: column;
+            }
+
+            .subscribe-form input {
+                min-width: 100%;
+            }
+
+            .mini-cart {
+                width: 290px;
+                right: -10px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            .logo {
+                font-size: 1rem;
+            }
+        }
+
+        /* ===== ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.12s; }
+        .reveal-delay-2 { transition-delay: 0.24s; }
+        .reveal-delay-3 { transition-delay: 0.36s; }
+
+        /* ===== ИНДИКАТОР ПРОКРУТКИ СТРАНИЦЫ ===== */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            width: 0%;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+            z-index: 1000;
+            transition: width 0.12s linear;
+        }
+
+        /* ===== КНОПКА «НАВЕРХ» ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--gradient-accent);
+            color: var(--text-light);
+            font-size: 1.35rem;
+            line-height: 1;
+            box-shadow: 0 10px 24px rgba(124, 92, 255, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(24px) scale(0.7);
+            pointer-events: none;
+            transition: opacity 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+            z-index: 900;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-4px) scale(1.06);
+            box-shadow: 0 16px 34px rgba(124, 92, 255, 0.55);
+        }
+
+        .back-to-top:active {
+            transform: translateY(0) scale(0.95);
+        }
+
+        /* ===== ПАРЯЩАЯ ГИТАРА В БЛОКЕ «О КОМПАНИИ» ===== */
+        .about-guitar {
+            animation: floatBob 3.5s ease-in-out infinite;
+        }
+
+        @keyframes floatBob {
+            0%, 100% { transform: translateY(0) rotate(-4deg); }
+            50% { transform: translateY(-12px) rotate(4deg); }
+        }
+
+        /* ===== ПОДДЕРЖКА prefers-reduced-motion ===== */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .product-card:hover {
+                transform: none;
+            }
+            .feature-card:hover {
+                transform: none;
+            }
+            .btn:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Индикатор прогресса прокрутки страницы -->
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+    <!-- ===== ШАПКА ===== -->
+    <header>
+        <div class="container header-inner">
+            <a href="#" class="logo">Музыка <span>нас связала</span></a>
+
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#catalog">Каталог</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#delivery">Доставка</a></li>
+                    <li><a href="#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div class="cart-wrapper" id="cartWrapper" aria-label="Корзина">
+                    <span class="cart-icon" aria-hidden="true">🛒</span>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                    <!-- Мини-корзина -->
+                    <div class="mini-cart" id="miniCart">
+                        <div class="mini-cart-empty" id="miniCartEmpty">Корзина пуста</div>
+                        <div id="miniCartItems"></div>
+                        <div class="mini-cart-total" id="miniCartTotal" style="display: none;">
+                            <span>Итого:</span>
+                            <span id="miniCartTotalPrice">0 ₽</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="hamburger" id="hamburger" aria-label="Меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ===== HERO ===== -->
+        <section class="hero" id="hero">
+            <div class="hero-notes" aria-hidden="true">
+                <span style="left: 8%; animation-duration: 14s; animation-delay: 0s;">♪</span>
+                <span style="left: 18%; animation-duration: 18s; animation-delay: 3s;">♫</span>
+                <span style="left: 30%; animation-duration: 15s; animation-delay: 6s;">♪</span>
+                <span style="left: 42%; animation-duration: 20s; animation-delay: 1.5s;">♩</span>
+                <span style="left: 55%; animation-duration: 16s; animation-delay: 8s;">♬</span>
+                <span style="left: 66%; animation-duration: 19s; animation-delay: 2s;">♪</span>
+                <span style="left: 78%; animation-duration: 14s; animation-delay: 5s;">♫</span>
+                <span style="left: 90%; animation-duration: 17s; animation-delay: 9s;">♪</span>
+            </div>
+            <div class="container">
+                <h1>Музыка <span>начинается здесь</span></h1>
+                <p>Откройте для себя мир звуков с лучшими инструментами от ведущих мировых производителей.</p>
+                <a href="#catalog" class="btn">Перейти в каталог</a>
+            </div>
+        </section>
+
+        <!-- ===== ПРЕИМУЩЕСТВА ===== -->
+        <section class="section" id="features">
+            <div class="container">
+                <h2 class="section-title">Почему <span>мы</span></h2>
+                <div class="features-grid">
+                    <div class="feature-card reveal reveal-delay-1">
+                        <span class="feature-icon" aria-hidden="true">🚚</span>
+                        <h3>Бесплатная доставка</h3>
+                        <p>При заказе от 5000 ₽ по всей России</p>
+                    </div>
+                    <div class="feature-card reveal reveal-delay-2">
+                        <span class="feature-icon" aria-hidden="true">🛡️</span>
+                        <h3>Гарантия качества</h3>
+                        <p>Только оригинальные инструменты с гарантией</p>
+                    </div>
+                    <div class="feature-card reveal reveal-delay-3">
+                        <span class="feature-icon" aria-hidden="true">🔄</span>
+                        <h3>Обмен и возврат</h3>
+                        <p>14 дней на возврат без объяснения причин</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== КАТАЛОГ ===== -->
+        <section class="section" id="catalog">
+            <div class="container">
+                <h2 class="section-title">Наш <span>каталог</span></h2>
+                <div class="catalog-grid reveal" id="catalogGrid">
+                    <!-- Товары генерируются JS -->
+                </div>
+                <div class="pagination" id="pagination">
+                    <!-- Пагинация генерируется JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== О КОМПАНИИ ===== -->
+        <section class="section" id="about">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-text reveal">
+                        <h2>О <span>компании</span></h2>
+                        <p>«Музыка нас связала» — это не просто магазин, это сообщество музыкантов. Мы работаем с 2010 года и за это время помогли тысячам клиентов найти свой идеальный звук.</p>
+                        <p>Наша миссия — сделать качественные музыкальные инструменты доступными для каждого, от новичка до профессионала.</p>
+                        <div class="stats">
+                            <div class="stat-item reveal reveal-delay-1">
+                                <span class="stat-number">15+</span>
+                                <span class="stat-label">лет на рынке</span>
+                            </div>
+                            <div class="stat-item reveal reveal-delay-2">
+                                <span class="stat-number">25%</span>
+                                <span class="stat-label">доля рынка</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-text reveal reveal-delay-2">
+                        <div style="background: linear-gradient(160deg, #f4efff 0%, #ffe9f2 100%); border-radius: var(--radius); padding: 45px 40px; text-align: center; border: 1px solid rgba(124, 92, 255, 0.15); box-shadow: var(--shadow-md); position: relative; overflow: hidden;">
+                            <span class="about-guitar" style="font-size: 4.2rem; display: block; margin-bottom: 20px; filter: drop-shadow(0 8px 20px rgba(124, 92, 255, 0.3));" aria-hidden="true">🎸</span>
+                            <h3 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--text-main);">Более 5000 инструментов</h3>
+                            <p style="color: var(--text-muted); font-size: 0.95rem;">В нашем каталоге представлены гитары, клавишные, ударные, духовые инструменты и синтезаторы от лучших брендов мира.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ОТЗЫВЫ ===== -->
+        <section class="section" id="reviews">
+            <div class="container">
+                <h2 class="section-title">Отзывы <span>клиентов</span></h2>
+                <div class="reviews-grid">
+                    <div class="review-card reveal reveal-delay-1">
+                        <p class="review-text">Отличный магазин! Купил здесь свою первую электрогитару. Консультанты помогли с выбором, доставка быстрая.</p>
+                        <div class="review-author">Алексей Петров</div>
+                        <div class="review-product">Гитара Fender Stratocaster</div>
+                    </div>
+                    <div class="review-card reveal reveal-delay-2">
+                        <p class="review-text">Заказывала синтезатор для сына. Приятно удивила цена и качество обслуживания. Будем обращаться ещё!</p>
+                        <div class="review-author">Мария Иванова</div>
+                        <div class="review-product">Синтезатор Yamaha PSR</div>
+                    </div>
+                    <div class="review-card reveal reveal-delay-3">
+                        <p class="review-text">Профессиональный подход. Помогли подобрать ударную установку для студии. Всё пришло в целости и сохранности.</p>
+                        <div class="review-author">Дмитрий Соколов</div>
+                        <div class="review-product">Ударная установка Pearl</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ДОСТАВКА ===== -->
+        <section class="section" id="delivery">
+            <div class="container">
+                <h2 class="section-title">Доставка <span>и оплата</span></h2>
+                <div class="delivery-grid">
+                    <div class="delivery-card reveal reveal-delay-1">
+                        <span class="delivery-icon" aria-hidden="true">🏬</span>
+                        <h3>Самовывоз</h3>
+                        <p>Бесплатно из нашего шоурума в Москве. Заказ будет готов уже через 2 часа.</p>
+                    </div>
+                    <div class="delivery-card reveal reveal-delay-2">
+                        <span class="delivery-icon" aria-hidden="true">🚚</span>
+                        <h3>Курьером по Москве</h3>
+                        <p>Доставка за 1–2 дня. Бесплатно при заказе от 5000 ₽.</p>
+                    </div>
+                    <div class="delivery-card reveal reveal-delay-3">
+                        <span class="delivery-icon" aria-hidden="true">📦</span>
+                        <h3>По всей России</h3>
+                        <p>Отправляем СДЭК и Почтой России. От 3 до 10 дней в зависимости от региона.</p>
+                    </div>
+                </div>
+                <div class="delivery-note reveal">
+                    <p>💳 Оплата: картой онлайн, при получении или в рассрочку. Все инструменты проходят предпродажную подготовку и упаковываются в усиленную тару.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ПОДПИСКА ===== -->
+        <section class="section subscribe-section" id="subscribe">
+            <div class="container subscribe-inner reveal">
+                <h2>Будьте <span>в курсе</span></h2>
+                <p>Подпишитесь на рассылку и получайте скидки и новости первыми</p>
+                <form class="subscribe-form" id="subscribeForm" novalidate>
+                    <input type="email" id="emailInput" placeholder="Ваш email" aria-label="Email">
+                    <button type="submit" class="btn">Подписаться</button>
+                    <div class="form-message" id="formMessage"></div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== ФУТЕР ===== -->
+    <footer id="contacts">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Музыка нас связала</h4>
+                    <p>Ваш проводник в мир музыки с 2010 года.</p>
+                    <div class="social-links" style="margin-top: 15px;">
+                        <a href="#">VK</a>
+                        <a href="#">Telegram</a>
+                        <a href="#">YouTube</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <p><span aria-hidden="true">📞</span> +7 (999) 123-45-67</p>
+                    <p><span aria-hidden="true">✉️</span> info@music-linked.ru</p>
+                    <p><span aria-hidden="true">📍</span> г. Москва, ул. Музыкальная, 15</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="#catalog">Каталог</a></li>
+                        <li><a href="#about">О нас</a></li>
+                        <li><a href="#delivery">Доставка</a></li>
+                        <li><a href="#contacts">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Помощь</h4>
+                    <ul>
+                        <li><a href="#">Оплата</a></li>
+                        <li><a href="#">Гарантия</a></li>
+                        <li><a href="#">Возврат</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2025 Музыка нас связала. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== ДАННЫЕ КАТАЛОГА (JSON) ===== -->
+    <!-- Данные вынесены из JS-кода в отдельный JSON-блок: разделение данных и логики (C3) -->
+    <script type="application/json" id="products-data">
+    [
+        { "id": 1, "name": "Электрогитара Fender Stratocaster", "price": 89900, "category": "guitar", "hit": true, "image": "images/1-fender-stratocaster.jpg", "desc": "Легендарная модель с сингловыми звукоснимателями. Идеальна для рока, блюза и фанка." },
+        { "id": 2, "name": "Акустическая гитара Taylor 214ce", "price": 74500, "category": "guitar", "hit": false, "image": "images/2-taylor-214ce.jpg", "desc": "Гитара с теплым и сбалансированным звучанием. Корпус из массива ситхинской ели." },
+        { "id": 3, "name": "Бас-гитара Ibanez SR300E", "price": 42000, "category": "guitar", "hit": false, "image": "images/3-ibanez-sr300e.jpg", "desc": "Активный бас с 3-полосным эквалайзером. Отличный выбор для начинающих и профи." },
+        { "id": 4, "name": "Цифровое пианино Casio CDP-S110", "price": 45000, "category": "keys", "hit": true, "image": "images/4-casio-cdp-s110.jpg", "desc": "Компактное цифровое пианино с молоточковой механикой. 88 клавиш." },
+        { "id": 5, "name": "Синтезатор Yamaha PSR-E373", "price": 28000, "category": "synth", "hit": true, "image": "images/5-yamaha-psr-e373.jpg", "desc": "61 клавиша, 622 тембра и 205 стилей. Идеален для обучения и творчества." },
+        { "id": 6, "name": "Ударная установка Pearl Roadshow", "price": 68000, "category": "drums", "hit": true, "image": "images/6-pearl-roadshow.jpg", "desc": "Полный комплект для начинающего барабанщика. Включает стойки и педаль." },
+        { "id": 7, "name": "Саксофон Alto Jupiter JAS500", "price": 55000, "category": "wind", "hit": false, "image": "images/7-saxophone.jpg", "desc": "Отличный выбор для студентов. Тёплый звук и надёжная механика." },
+        { "id": 8, "name": "Синтезатор Roland JUNO-DS61", "price": 72000, "category": "synth", "hit": false, "image": "images/8-roland-juno.jpg", "desc": "Профессиональный синтезатор с возможностью сэмплирования и 61 клавишей." },
+        { "id": 9, "name": "Труба Bach TR300H2", "price": 49000, "category": "wind", "hit": false, "image": "images/9-trumpet.jpg", "desc": "Надёжная труба для студентов и любителей. Яркий и чистый звук." },
+        { "id": 10, "name": "Электронные барабаны Alesis Nitro Mesh", "price": 38000, "category": "drums", "hit": false, "image": "images/10-alesis-nitro.jpg", "desc": "Сетчатые пэды, реалистичная отдача, 385 звуков и USB-подключение." },
+        { "id": 11, "name": "MIDI-клавиатура Arturia KeyLab 49", "price": 32000, "category": "keys", "hit": false, "image": "images/11-arturia-keylab.jpg", "desc": "49 клавиш, 16 пэдов и множество регуляторов для полного контроля." },
+        { "id": 12, "name": "Флейта Yamaha YFL-222", "price": 24000, "category": "wind", "hit": false, "image": "images/12-flute.jpg", "desc": "Надежная флейта для начинающих. Закрытые клапаны, посеребренный корпус." }
+    ]
+    </script>
+
+    <!-- Кнопка «Наверх» -->
+    <button class="back-to-top" id="backToTop" aria-label="Наверх">↑</button>
+
+    <script>
+        // ===== 1. ДАННЫЕ ТОВАРОВ =====
+        // Данные загружаются из JSON-блока в разметке (id="products-data").
+        // Это разделяет данные и логику (C3); для переноса на сервер достаточно
+        // заменить чтение из блока на fetch('products.json').
+        const allProducts = (() => {
+            try {
+                const dataEl = document.getElementById('products-data');
+                return dataEl ? JSON.parse(dataEl.textContent) : [];
+            } catch (err) {
+                console.error('Не удалось загрузить каталог товаров:', err);
+                return [];
+            }
+        })();
+
+        // ===== 2. СОСТОЯНИЕ =====
+        let cart = JSON.parse(localStorage.getItem('musicCart')) || [];
+        let currentPage = 1;
+        const itemsPerPage = 9;
+
+        // ===== 3. РЕНДЕРИНГ КАТАЛОГА =====
+        function renderCatalog() {
+            const grid = document.getElementById('catalogGrid');
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageItems = allProducts.slice(start, end);
+
+            grid.innerHTML = pageItems.map((product, i) => `
+                <article class="product-card reveal reveal-delay-${(i % 3) + 1}">
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="handleImageError(this)" onload="this.closest('.product-image').classList.add('loaded')">
+                        ${product.hit ? '<span class="badge-hit">Хит</span>' : ''}
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-desc">${product.desc}</p>
+                        <div class="product-price">${product.price.toLocaleString('ru-RU')} ₽</div>
+                        <button class="btn" onclick="addToCart(${product.id}, this)">В корзину</button>
+                    </div>
+                </article>
+            `).join('');
+
+            renderPagination();
+            setupReveal();
+        }
+
+        // Запасной вариант: если картинка не загрузилась, показываем заглушку с названием товара
+        function handleImageError(img) {
+            img.onerror = null; // защита от зацикливания
+            img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+                '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400">' +
+                '<rect width="100%" height="100%" fill="#eef0f4"/>' +
+                '<text x="50%" y="42%" font-size="72" text-anchor="middle" dominant-baseline="middle">🎵</text>' +
+                '<text x="50%" y="68%" font-size="20" text-anchor="middle" fill="#636e72" font-family="Arial, sans-serif">' + (img.alt || 'Товар') + '</text>' +
+                '</svg>'
+            );
+        }
+
+        // ===== 4. ПАГИНАЦИЯ =====
+        function renderPagination() {
+            const totalPages = Math.ceil(allProducts.length / itemsPerPage);
+            const pagination = document.getElementById('pagination');
+            let html = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<button class="${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+            }
+            pagination.innerHTML = html;
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            renderCatalog();
+            document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ===== 5. КОРЗИНА =====
+        function addToCart(productId, btn) {
+            const product = allProducts.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            saveCart();
+            updateCartUI();
+
+            // Анимация добавления товара в корзину
+            animateAddToCart(btn);
+        }
+
+        // ===== 5.1. АНИМАЦИЯ ДОБАВЛЕНИЯ В КОРЗИНУ =====
+        function animateAddToCart(btn) {
+            const card = btn ? btn.closest('.product-card') : null;
+
+            // 1. Пульс карточки товара
+            if (card) {
+                card.classList.remove('added');
+                void card.offsetWidth; // перезапуск анимации
+                card.classList.add('added');
+            }
+
+            // 2. Кнопка: временно меняем на "Добавлено ✓"
+            if (btn) {
+                const originalText = btn.textContent;
+                btn.classList.add('added');
+                btn.textContent = '✓ Добавлено';
+                setTimeout(() => {
+                    btn.classList.remove('added');
+                    btn.textContent = originalText;
+                }, 1200);
+            }
+
+            // 3. Прыжок бейджа корзины
+            const badge = document.getElementById('cartBadge');
+            badge.classList.remove('bounce');
+            void badge.offsetWidth;
+            badge.classList.add('bounce');
+
+            // 4. Летящая картинка товара в корзину
+            if (card) {
+                const img = card.querySelector('.product-image img');
+                const cartIcon = document.querySelector('.cart-icon');
+                if (img && cartIcon) {
+                    const imgRect = img.getBoundingClientRect();
+                    const cartRect = cartIcon.getBoundingClientRect();
+
+                    const startX = imgRect.left + imgRect.width / 2 - 35;
+                    const startY = imgRect.top + imgRect.height / 2 - 35;
+
+                    const fly = document.createElement('div');
+                    fly.className = 'fly-to-cart';
+                    fly.style.left = startX + 'px';
+                    fly.style.top = startY + 'px';
+
+                    const flyImg = document.createElement('img');
+                    flyImg.src = img.src;
+                    flyImg.alt = '';
+                    fly.appendChild(flyImg);
+
+                    document.body.appendChild(fly);
+
+                    // Принудительный reflow для запуска transition
+                    void fly.offsetWidth;
+
+                    const dx = cartRect.left + cartRect.width / 2 - (imgRect.left + imgRect.width / 2);
+                    const dy = cartRect.top + cartRect.height / 2 - (imgRect.top + imgRect.height / 2);
+
+                    fly.style.transform = `translateX(${dx}px)`;
+                    flyImg.style.transform = `translateY(${dy}px) scale(0.15)`;
+                    flyImg.style.opacity = '0.3';
+
+                    setTimeout(() => fly.remove(), 800);
+                }
+            }
+        }
+
+        function changeQuantity(productId, delta) {
+            const item = cart.find(item => item.id === productId);
+            if (!item) return;
+
+            item.quantity += delta;
+            if (item.quantity <= 0) {
+                cart = cart.filter(item => item.id !== productId);
+            }
+
+            saveCart();
+            updateCartUI();
+        }
+
+        function saveCart() {
+            localStorage.setItem('musicCart', JSON.stringify(cart));
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cartBadge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            if (totalItems > 0) {
+                badge.textContent = totalItems;
+                badge.classList.add('visible');
+            } else {
+                badge.classList.remove('visible');
+            }
+
+            const emptyMsg = document.getElementById('miniCartEmpty');
+            const itemsContainer = document.getElementById('miniCartItems');
+            const totalContainer = document.getElementById('miniCartTotal');
+            const totalPriceEl = document.getElementById('miniCartTotalPrice');
+
+            if (cart.length === 0) {
+                emptyMsg.style.display = 'block';
+                itemsContainer.innerHTML = '';
+                totalContainer.style.display = 'none';
+                return;
+            }
+
+            emptyMsg.style.display = 'none';
+            totalContainer.style.display = 'flex';
+
+            let totalPrice = 0;
+            itemsContainer.innerHTML = cart.map(item => {
+                totalPrice += item.price * item.quantity;
+                return `
+                    <div class="mini-cart-item">
+                        <div class="mini-cart-item-info">
+                            <div class="mini-cart-item-name">${item.name}</div>
+                            <div class="mini-cart-item-price">${item.price.toLocaleString('ru-RU')} ₽</div>
+                        </div>
+                        <div class="mini-cart-item-qty">
+                            <button onclick="changeQuantity(${item.id}, -1)">−</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="changeQuantity(${item.id}, 1)">+</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            totalPriceEl.textContent = totalPrice.toLocaleString('ru-RU') + ' ₽';
+        }
+
+        // ===== 6. ИНТЕРАКТИВНОСТЬ =====
+        // Гамбургер-меню
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('open');
+        });
+
+        // Закрытие меню при клике на ссылку
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('open');
+            });
+        });
+
+        // Мини-корзина
+        const cartWrapper = document.getElementById('cartWrapper');
+        const miniCart = document.getElementById('miniCart');
+
+        cartWrapper.addEventListener('click', (e) => {
+            if (e.target.closest('.mini-cart-item-qty') || e.target.closest('.mini-cart')) return;
+            miniCart.classList.toggle('open');
+        });
+
+        // Закрытие корзины при клике вне её
+        document.addEventListener('click', (e) => {
+            if (!cartWrapper.contains(e.target)) {
+                miniCart.classList.remove('open');
+            }
+        });
+
+        // Валидация формы подписки
+        const subscribeForm = document.getElementById('subscribeForm');
+        const emailInput = document.getElementById('emailInput');
+        const formMessage = document.getElementById('formMessage');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        subscribeForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = emailInput.value.trim();
+
+            if (!email) {
+                formMessage.textContent = 'Пожалуйста, введите email.';
+                formMessage.className = 'form-message error';
+                emailInput.classList.add('error');
+                return;
+            }
+
+            if (!emailRegex.test(email)) {
+                formMessage.textContent = 'Пожалуйста, введите корректный email.';
+                formMessage.className = 'form-message error';
+                emailInput.classList.add('error');
+                return;
+            }
+
+            formMessage.textContent = 'Спасибо за подписку! Мы будем держать вас в курсе.';
+            formMessage.className = 'form-message success';
+            emailInput.classList.remove('error');
+            emailInput.value = '';
+
+            // Анимация кнопки при успешной подписке
+            const subscribeBtn = document.querySelector('.subscribe-form .btn');
+            subscribeBtn.classList.add('added');
+            subscribeBtn.textContent = '✓ Подписано';
+            setTimeout(() => {
+                subscribeBtn.classList.remove('added');
+                subscribeBtn.textContent = 'Подписаться';
+            }, 2000);
+        });
+
+        emailInput.addEventListener('input', () => {
+            emailInput.classList.remove('error');
+            formMessage.textContent = '';
+            formMessage.className = 'form-message';
+        });
+
+        // ===== 6.1. ПОЯВЛЕНИЕ ЭЛЕМЕНТОВ ПРИ СКРОЛЛЕ =====
+        function setupReveal() {
+            const els = document.querySelectorAll('.reveal:not(.visible)');
+            if (!('IntersectionObserver' in window)) {
+                els.forEach(el => el.classList.add('visible'));
+                return;
+            }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+            els.forEach(el => observer.observe(el));
+        }
+
+        // ===== 6.2. ДОПОЛНИТЕЛЬНЫЕ АНИМАЦИИ =====
+        // Индикатор прогресса прокрутки и кнопка «Наверх»
+        const scrollProgress = document.getElementById('scrollProgress');
+        const backToTop = document.getElementById('backToTop');
+
+        function getScrollTop() {
+            return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+        }
+
+        function updateScrollUI() {
+            const scrollTop = getScrollTop();
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            scrollProgress.style.width = progress + '%';
+
+            if (scrollTop > 600) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }
+
+        window.addEventListener('scroll', updateScrollUI, { passive: true });
+        window.addEventListener('resize', updateScrollUI);
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Анимированный счётчик статистики
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            if (!('IntersectionObserver' in window)) {
+                statNumbers.forEach(el => countUp(el));
+                return;
+            }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        countUp(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.4 });
+            statNumbers.forEach(el => observer.observe(el));
+        }
+
+        function countUp(el) {
+            const match = el.textContent.match(/^([\d.]+)(.*)$/);
+            if (!match) return;
+            const target = parseFloat(match[1]);
+            const suffix = match[2];
+            const isFloat = match[1].includes('.');
+            const duration = 1300;
+            const start = performance.now();
+
+            function tick(now) {
+                const progress = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const value = target * eased;
+                el.textContent = (isFloat ? value.toFixed(1) : Math.round(value)) + suffix;
+                if (progress < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        }
+
+        // ===== 7. ИНИЦИАЛИЗАЦИЯ =====
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCatalog();
+            updateCartUI();
+            setupReveal();
+            animateStats();
+            updateScrollUI();
+        });
+    </script>
+</body>
+</html>
